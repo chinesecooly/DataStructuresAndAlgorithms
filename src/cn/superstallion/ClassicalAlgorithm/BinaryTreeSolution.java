@@ -608,12 +608,12 @@ public class BinaryTreeSolution {
     }
 
     //144. 二叉树的前序遍历
-    public List<Integer> preorderTraversal(TreeNode root) {
+    static public List<Integer> preorderTraversal(TreeNode root) {
         ArrayList<Integer> preorderList = new ArrayList<>();
         preorderTraversal(root, preorderList);
         return preorderList;
     }
-    public void preorderTraversal(TreeNode root, List<Integer> preorderList) {
+    static public void preorderTraversal(TreeNode root, List<Integer> preorderList) {
         if (root != null) {
             preorderList.add(root.val);
             preorderTraversal(root.left, preorderList);
@@ -859,6 +859,56 @@ public class BinaryTreeSolution {
             binaryTreePaths(root.left, paths, path);
             path.delete(path.lastIndexOf(root.val + ""), path.length());
         }
+    }
+
+    //297. 二叉树的序列化与反序列化
+    static public List<Integer> preorderTraversalString(TreeNode root) {
+        ArrayList<Integer> preorderList = new ArrayList<>();
+        preorderTraversalString(root, preorderList);
+        return preorderList;
+    }
+    static public void preorderTraversalString(TreeNode root, List<Integer> preorderList) {
+        if (root != null) {
+            preorderList.add(root.val);
+            preorderTraversalString(root.left, preorderList);
+            preorderTraversalString(root.right, preorderList);
+        }else{
+            preorderList.add(null);
+        }
+    }
+    static public TreeNode preorderConstruct(Queue<Integer> queue) {
+        if (queue.isEmpty() || queue.peek() == null) {
+            queue.poll();
+            return null;
+        } else {
+            TreeNode node = new TreeNode();
+            node.val = queue.poll();
+            node.left = preorderConstruct(queue);
+            node.right = preorderConstruct(queue);
+            return node;
+        }
+    }
+    static public String serialize(TreeNode root) {
+        return  preorderTraversalString(root).toString();
+    }
+    static public TreeNode deserialize(String data) {
+        Queue<Integer> queue = new LinkedList<>();
+        Arrays.stream(data.substring(1, data.length() - 1).split(","))
+                .map(String::trim)
+                .forEach((str)->{
+                    if (str.equals("null")){
+                        queue.offer(null);
+                    }else {
+                        queue.offer(Integer.parseInt(str));
+                    }
+                });
+        return preorderConstruct(queue);
+    }
+
+    //331. 验证二叉树的前序序列化
+    public boolean isValidSerialization(String preorder) {
+
+        return false;
     }
 
     //404. 左叶子之和
@@ -1263,9 +1313,9 @@ public class BinaryTreeSolution {
     
     public static void main(String[] args) {
         Queue<Integer>queue=new LinkedList<Integer>();
-        Collections.addAll(queue,-1,0,3,-2,4,null,null,8);
-        TreeNode root = TreeNode.levelOrderConstruct(queue);
-        System.out.println(lowestCommonAncestor(root,new TreeNode(8),new TreeNode(4)));
+        Collections.addAll(queue,1,2,null,null,3,4,null,null,5,null,null);
+        System.out.println(queue.toString());
+        System.out.println(queue.toString().length());
     }
 }
 
@@ -1300,7 +1350,7 @@ class TreeNode {
             return node;
         }
     }
-
+    //层序构造
     static public TreeNode levelOrderConstruct(Queue<Integer> queue) {
         Queue<TreeNode>nodes=new LinkedList<TreeNode>();
         TreeNode root = new TreeNode(queue.poll());
