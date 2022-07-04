@@ -64,7 +64,7 @@ public class solution_455 {
     }
 
     /**
-     * 贪心加排序
+     * 贪心加排序，两个数组只需要遍历一次
      */
     public int findContentChildrenVersion2(int[] g, int[] s) {
         Arrays.sort(g);
