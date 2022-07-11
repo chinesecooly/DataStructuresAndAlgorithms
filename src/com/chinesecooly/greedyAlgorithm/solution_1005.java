@@ -123,7 +123,7 @@ public class solution_1005 {
     }
 
     //充分利用条件，好好学，好好练
-    public int largestSumAfterKNegationsVersion(int[] nums, int k) {
+    public int largestSumAfterKNegationsVersion2(int[] nums, int k) {
         // 排序，把可能有的负数排到前面
         Arrays.sort(nums);
         int sum = 0;
