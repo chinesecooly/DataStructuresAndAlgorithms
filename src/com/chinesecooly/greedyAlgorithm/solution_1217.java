@@ -73,6 +73,7 @@ public class solution_1217 {
             return result;
         }
     }
+
     //判断奇偶个数即可，想不到
     public int minCostToMoveChipsVersion2(int[] position) {
         int even = 0, odd = 0;
